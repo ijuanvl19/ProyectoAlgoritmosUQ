@@ -4,8 +4,6 @@ import bibtexparser
 import re
 
 
-
-
 def leer_bibtex(filepath):
     print(f"Leyendo el archivo: {filepath}")
     with open(filepath, 'r', encoding='utf-8') as bibtex_file:
@@ -56,16 +54,20 @@ def leer_bibtex_con_mmap_regex(filepath):
     return entradas
 
 
+
+
 def combinar_bibtex_sin_repetidos_por_titulo(archivos_bib, output_filepath):
-    import bibtexparser
+    
     entradas_unicas = {}
 
     for archivo in archivos_bib:
         print(f"Leyendo el archivo: {archivo}")
-        
+
         database = archivo.split('/')[1]
 
         # Leer cada archivo .bib y obtener sus entradas
+        print(f"Leyendo el archivo: {archivo}")
+       
         if archivo.split('/')[1] == 'IEEE':
             bib_database = leer_bibtex(archivo)
             for entry in bib_database.entries:
@@ -81,6 +83,19 @@ def combinar_bibtex_sin_repetidos_por_titulo(archivos_bib, output_filepath):
 
                 if title and title not in entradas_unicas:
                     entradas_unicas[title] = entry
+
+                if title and title not in entradas_unicas:
+                    entradas_unicas[title] = entry
+        else:
+            bib_database = leer_bibtex_con_mmap_regex(archivo)
+            for entry in bib_database:
+                title = entry.get('title', '').strip().lower()
+
+                entry['ENTRYTYPE'] = entry.get('type', 'misc')
+                entry['ID'] = entry.get('id', 'undefined')
+
+                if database != 'temps':
+                    entry['database'] = database
 
                 if title and title not in entradas_unicas:
                     entradas_unicas[title] = entry
