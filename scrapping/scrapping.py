@@ -22,7 +22,7 @@ def donwloadDataIEE():
     # TODO: cambiar la ruta de descarga dependiendo del sistema
     # operativo winndows o mac os cada ruta depdende de donde almaceno el proyecto
     # Cambia a la ruta correcta#
-    download_dir = r"E:\celuweb\ProyectoAlgoritmosUQ\assets\IEEE"
+    download_dir = r"C:\Users\Juan Pablo Vélez L\Desktop\ProyectoAlgoritmosUQ\assets"
 
     chrome_options = Options()
     chrome_options.add_experimental_option("prefs", {
@@ -139,7 +139,7 @@ def download_sage_articles():
     # operativo winndows o mac os cada ruta depdende de donde almaceno el proyecto
 
     # Cambia a la ruta correcta#
-    download_dir = r"E:\celuweb\ProyectoAlgoritmosUQ\assets\sage"
+    download_dir = r"C:\Users\Juan Pablo Vélez L\Desktop\ProyectoAlgoritmosUQ\assets"
 
     chrome_options = Options()
     chrome_options.add_experimental_option("prefs", {
@@ -287,7 +287,7 @@ def download_sciense_articles():
     # operativo winndows o mac os cada ruta depdende de donde almaceno el proyecto
 
     # Cambia a la ruta correcta#
-    download_dir = r"E:\celuweb\ProyectoAlgoritmosUQ\assets\sciense"
+    download_dir = r"C:\Users\Juan Pablo Vélez L\Desktop\ProyectoAlgoritmosUQ\assets"
 
     chrome_options = Options()
     chrome_options.add_experimental_option("prefs", {

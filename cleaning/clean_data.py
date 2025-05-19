@@ -59,6 +59,8 @@ def leer_bibtex_con_mmap_regex(filepath):
 def combinar_bibtex_sin_repetidos_por_titulo(archivos_bib, output_filepath):
     
     entradas_unicas = {}
+    entradas_repetidas = {}
+    entradas_totales = []
 
     for archivo in archivos_bib:
         print(f"Leyendo el archivo: {archivo}")
@@ -80,12 +82,13 @@ def combinar_bibtex_sin_repetidos_por_titulo(archivos_bib, output_filepath):
                 entry['ID'] = entry.get('ID', 'undefined')
                 if database != 'temps':
                     entry['database'] = database
+                
+                entradas_totales.append(entry) 
 
                 if title and title not in entradas_unicas:
                     entradas_unicas[title] = entry
-
-                if title and title not in entradas_unicas:
-                    entradas_unicas[title] = entry
+                elif(title and title not in entradas_repetidas) : 
+                    entradas_repetidas[title] = entry
         else:
             bib_database = leer_bibtex_con_mmap_regex(archivo)
             for entry in bib_database:
@@ -97,16 +100,32 @@ def combinar_bibtex_sin_repetidos_por_titulo(archivos_bib, output_filepath):
                 if database != 'temps':
                     entry['database'] = database
 
+                entradas_totales.append(entry) 
                 if title and title not in entradas_unicas:
                     entradas_unicas[title] = entry
 
+                elif(title and title not in entradas_repetidas) : 
+                    entradas_repetidas[title] = entry
+
     # Crear una base de datos combinada con las entradas únicas
     bib_database_combinado = bibtexparser.bibdatabase.BibDatabase()
-    bib_database_combinado.entries = list(entradas_unicas.values())
+    bib_database_repetidos = bibtexparser.bibdatabase.BibDatabase()
+    bib_database_totales = bibtexparser.bibdatabase.BibDatabase()
 
+    bib_database_combinado.entries = list(entradas_unicas.values())
+    bib_database_repetidos.entries = list(entradas_repetidas.values())
+    bib_database_totales.entries = entradas_totales
+    
     # Guardar el archivo combinado
     with open(output_filepath, 'w', encoding='utf-8') as bibtex_file:
         bibtexparser.dump(bib_database_combinado, bibtex_file)
+
+    with open('assets/temps/repetidos.bib', 'w', encoding='utf-8') as bibtex_file:
+        bibtexparser.dump(bib_database_repetidos, bibtex_file)
+
+    with open('assets/temps/totales.bib', 'w', encoding='utf-8') as bibtex_file:
+        bibtexparser.dump(bib_database_totales, bibtex_file)
+    
 
     print(f"Archivo combinado sin repetidos guardado en: {output_filepath}")
 

@@ -19,44 +19,44 @@ import data_model.categoreis_lists as cl
 # thread_2.join()
 # thread_3.join()
 
-# Esperar a que todos los hilos terminen
+# # Esperar a que todos los hilos terminen
 # thread_1.join()
 # thread_2.join()
 # thread_3.join()
 
 
 # Especifica la carpeta que contiene los archivos .bib
-# folders = ['IEEE', 'sage', 'sciense']
+folders = ['IEEE', 'sage', 'sciense']
 
-# output_folder = 'assets/temps/'
+output_folder = 'assets/temps/'
 
-# for folder in folders:
-#     # Obtener la ruta de la carpeta actual
-#     routs = [os.path.normpath(r).replace('\\', '/') for r in cd.obtener_archivos_bib('assets/' + folder)]
-#     # Crear la ruta completa para el archivo de salida
-#     output_filepath = os.path.join(output_folder, f'{folder}Consolidated.bib')
-#     # Combinar los archivos .bib y guardar en la ruta especificada
-#     cd.combinar_bibtex_sin_repetidos_por_titulo(routs, output_filepath)
-#     print(f"Archivo combinado sin repetidos guardado en: {output_filepath}")
+for folder in folders:
+    # Obtener la ruta de la carpeta actual
+    routs = [os.path.normpath(r).replace('\\', '/') for r in cd.obtener_archivos_bib('assets/' + folder)]
+    # Crear la ruta completa para el archivo de salida
+    output_filepath = os.path.join(output_folder, f'{folder}Consolidated.bib')
+    # Combinar los archivos .bib y guardar en la ruta especificada
+    cd.combinar_bibtex_sin_repetidos_por_titulo(routs, output_filepath)
+    print(f"Archivo combinado sin repetidos guardado en: {output_filepath}")
 
-# print("Archivos combinados y guardados correctamente.")
+print("Archivos combinados y guardados correctamente.")
 
-# # generar un archivo bibtex consolidado sin repetidos por título general de los archivos .bib temporales
-# input_folder = 'assets/temps/'
-# output_filepath = os.path.join(input_folder, 'Consolidated.bib')
+# generar un archivo bibtex consolidado sin repetidos por título general de los archivos .bib temporales
+input_folder = 'assets/temps/'
+output_filepath = os.path.join(input_folder, 'Consolidated.bib')
 
-# # Combinar los archivos .bib y guardar en la ruta especificada
-# cd.combinar_bibtex_sin_repetidos_por_titulo(cd.obtener_archivos_bib(input_folder), output_filepath)
-# print(f"Archivo combinado sin repetidos guardado en: {output_filepath}")
+# Combinar los archivos .bib y guardar en la ruta especificada
+cd.combinar_bibtex_sin_repetidos_por_titulo(cd.obtener_archivos_bib(input_folder), output_filepath)
+print(f"Archivo combinado sin repetidos guardado en: {output_filepath}")
 # -------------------------------------------------------------------------------------------------------
 # hasta aqui el codigo de la parte de scrapping y limpieza de los archivos bibtex
 # -------------------------------------------------------------------------------------------------------
 
 
 # Graficar los datos de las bases de datos
-input_file = 'assets/temps/Consolidated.bib'
+# input_file = 'assets/temps/Consolidated.bib'
 
-data = cd.leer_bibtex_con_mmap_regex(input_file)
+# data = cd.leer_bibtex_con_mmap_regex(input_file)
 
 # graficas consideradas core en el documento de requerimiento
 # top 15 autores
